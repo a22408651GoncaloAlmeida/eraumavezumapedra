@@ -1,81 +1,41 @@
-// Função para mostrar páginas principais (Arte/Biografia)
-function showPage(page) {
-    event.preventDefault();
-    
-    // Esconder todas as páginas
-    document.querySelectorAll('.page-section').forEach(section => {
-        section.classList.remove('active');
-    });
+document.addEventListener("DOMContentLoaded", () => {
 
-    // Remover classe active de todos os links da nav principal
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-    });
+    const buttons = document.querySelectorAll(".subcategory-link");
+    const sections = document.querySelectorAll(".category-section");
 
-    // Mostrar a página selecionada
-    const pageElement = document.getElementById(page);
-    if (pageElement) {
-        pageElement.classList.add('active');
-    }
+    // Função central
+    function showCategory(category) {
+        // Esconder tudo
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
 
-    // Adicionar classe active ao link clicado
-    event.target.classList.add('active');
-}
+        buttons.forEach(button => {
+            button.classList.remove("active");
+        });
 
-// Função para mostrar categorias dentro da página Arte
-function showCategory(category) {
-    event.preventDefault();
-    
-    // Esconder todas as categorias
-    document.querySelectorAll('.category-section').forEach(section => {
-        section.classList.remove('active');
-    });
-
-    // Remover classe active de todos os links das sub-abas
-    document.querySelectorAll('.subcategory-link').forEach(link => {
-        link.classList.remove('active');
-    });
-
-    // Mostrar a categoria selecionada
-    const categoryElement = document.getElementById(category + '-category');
-    if (categoryElement) {
-        categoryElement.classList.add('active');
-    }
-
-    // Adicionar classe active ao link clicado
-    event.target.classList.add('active');
-
-    // Resetar animações dos produtos
-    observeProducts();
-}
-
-// Intersectionobserver para animar produtos ao scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-            observer.unobserve(entry.target);
+        // Mostrar só a categoria certa
+        const activeSection = document.getElementById(`${category}-category`);
+        if (activeSection) {
+            activeSection.classList.add("active");
         }
-    });
-}, observerOptions);
 
-function observeProducts() {
-    // Observar todos os produtos que ainda não têm a classe reveal
-    document.querySelectorAll('.product-card:not(.reveal)').forEach(card => {
-        observer.observe(card);
-    });
-}
+        // Ativar botão certo
+        const activeButton = document.querySelector(
+            `.subcategory-link[data-category="${category}"]`
+        );
+        if (activeButton) {
+            activeButton.classList.add("active");
+        }
+    }
 
-// Inicializar quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-    // Mostrar página de Arte por padrão
-    showPage('arte');
-    
-    // Iniciar observação de produtos
-    observeProducts();
+    // Eventos de clique
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            showCategory(button.dataset.category);
+        });
+    });
+
+    // 🔑 ESTADO INICIAL — SÓ QUADROS
+    showCategory("quadros");
 });

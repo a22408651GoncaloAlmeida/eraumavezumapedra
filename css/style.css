@@ -30,6 +30,89 @@ nav {
     align-items: center;
 }
 
+/* DESTAQUE DE NATAL – BLOCO VERMELHO */
+.destaque-natal {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    background: linear-gradient(180deg, #b30000, #8c0000);
+    border-radius: 16px;
+    color: #fff;
+}
+
+.destaque-natal-content {
+    max-width: 720px;
+    margin-bottom: 1.5rem;
+}
+
+.destaque-natal h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+}
+
+.destaque-natal p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* CONTROLO DA IMAGEM */
+.destaque-natal img {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    min-height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* NEVE EM TODO O BLOCO */
+.destaque-natal::before,
+.destaque-natal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+}
+
+/* Flocos grandes (lentos) */
+.destaque-natal::before {
+    background-image:
+        radial-gradient(4px 4px at 30px 40px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(3px 3px at 120px 90px, rgba(255,255,255,0.85), transparent),
+        radial-gradient(4px 4px at 220px 150px, rgba(255,255,255,0.9), transparent);
+    background-size: 260px 260px;
+    animation: neve-lenta 20s linear infinite;
+}
+
+/* Flocos pequenos (rápidos) */
+.destaque-natal::after {
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 60px 80px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 100px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 160px 120px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 200px 60px, #fff, transparent);
+    background-size: 180px 180px;
+    animation: neve-rapida 10s linear infinite;
+    opacity: 0.95;
+}
+
+/* Animações */
+@keyframes neve-lenta {
+    from { background-position: 0 -300px; }
+    to   { background-position: 0 300px; }
+}
+
+@keyframes neve-rapida {
+    from { background-position: 0 -300px; }
+    to   { background-position: 0 300px; }
+}
+
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
@@ -88,43 +171,52 @@ main {
     display: block;
 }
 
-/* Sub-categorias de navegação */
+/* SUB-NAVEGAÇÃO (Quadros / Pedras / Pirogravura) */
 .subcategory-nav {
     display: flex;
-    gap: 2rem;
     justify-content: center;
+    gap: 2.5rem;
     margin-bottom: 3rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid #e8ddd2;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #e3d9cc;
 }
 
+/* Botões */
 .subcategory-link {
-    text-decoration: none;
-    color: #999;
-    font-size: 1rem;
-    transition: all 0.3s;
+    background: none;
+    border: none;
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    color: #9a8f84;
     cursor: pointer;
+    padding: 0;
     position: relative;
-    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
+/* Hover */
 .subcategory-link:hover {
     color: #7a5c3d;
 }
 
+/* Ativo */
 .subcategory-link.active {
     color: #7a5c3d;
+    font-weight: 600;
 }
 
+/* Linha elegante por baixo do ativo */
 .subcategory-link.active::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: -1.5rem;
     left: 0;
+    bottom: -1.2rem;
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, #7a5c3d, #a89179);
+    border-radius: 2px;
 }
+
 
 .hero {
     text-align: center;
@@ -140,6 +232,14 @@ main {
 .hero p {
     font-size: 1.2rem;
     color: #666;
+}
+
+.category-section {
+    display: none;
+}
+
+.category-section.active {
+    display: block;
 }
 
 .products-grid {
@@ -397,4 +497,144 @@ footer {
     .gallery {
         grid-template-columns: 1fr;
     }
+}
+
+/* Página de Biografia */
+.bio-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.bio-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.bio-header h1 {
+    font-size: 2.6rem;
+    color: #7a5c3d;
+}
+
+.bio-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.bio-image img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(139,111,71,0.25);
+}
+
+.bio-text {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(139,111,71,0.12);
+    border-left: 4px solid #8b6f47;
+}
+
+.bio-text p {
+    margin-bottom: 1.4rem;
+    color: #555;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* Bloco imagem + legenda */
+.bio-image-block {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.bio-image-block img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(139,111,71,0.25);
+    margin-bottom: 1rem;
+}
+
+/* Texto por baixo da foto (legenda) */
+.bio-caption {
+    font-size: 0.95rem;
+    color: #7a5c3d;
+    line-height: 1.5;
+    font-style: italic;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .bio-content {
+        grid-template-columns: 1fr;
+    }
+
+    .bio-image img {
+        height: 420px;
+    }
+}
+
+/* Página de Biografia */
+.bio-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+}
+
+.bio-title {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #7a5c3d;
+    margin-bottom: 2.5rem;
+}
+
+/* Texto corrido */
+.bio-text-wrap {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: #555;
+    text-align: justify;
+}
+
+/* IMAGEM COM TEXTO À VOLTA */
+.bio-float-image {
+    float: left;                     /* 🔑 isto faz o texto contornar */
+    width: 280px;
+    max-height: 360px;
+    object-fit: cover;
+    margin: 0 1.8rem 1.2rem 0;        /* espaço entre imagem e texto */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(139,111,71,0.25);
+}
+
+/* Espaçamento entre parágrafos */
+.bio-text-wrap p {
+    margin-bottom: 1rem;
+}
+
+/* Mobile: remove o float (importante!) */
+@media (max-width: 768px) {
+    .bio-float-image {
+        float: none;
+        display: block;
+        margin: 0 auto 1.5rem;
+        width: 100%;
+        max-height: 420px;
+    }
+
+    .bio-text-wrap {
+        text-align: left;
+    }
+}
+
+.clear-float {
+    clear: both;
 }
